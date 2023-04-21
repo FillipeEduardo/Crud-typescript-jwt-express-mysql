@@ -7,7 +7,9 @@ const getAllUsers = async (): Promise<User[]> => {
 };
 
 const CreateUser = async (user: User): Promise<User> => {
-  const result = await userModel.CreateUser(user);
+  const getUser = await userModel.getUserByEmail(user.email);
+  if (getUser) throw new Error('EMAIL_ALREADY_USED');
+  const result = await userModel.createUser(user);
   return result;
 };
 

@@ -7,7 +7,7 @@ const getAllUsers = async (): Promise<User[]> => {
   return result as User[];
 };
 
-const CreateUser = async (user: User): Promise<User> => {
+const createUser = async (user: User): Promise<User> => {
   const { email, name, password } = user;
   const [result] = await db
     .execute<OkPacket>(
@@ -20,7 +20,14 @@ const CreateUser = async (user: User): Promise<User> => {
   };
 };
 
+const getUserByEmail = async (email: string): Promise<User> => {
+  const [result] = await db
+    .execute<RowDataPacket[]>('SELECT * FROM Users WHERE email = ?', [email]);
+  return result[0] as User;
+};
+
 export default {
   getAllUsers,
-  CreateUser,
+  createUser,
+  getUserByEmail,
 };
