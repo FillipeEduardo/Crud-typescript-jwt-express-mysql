@@ -12,8 +12,14 @@ const CreateUser = async (req: Request, res: Response) => {
   const result = await userService.CreateUser(user);
   return res.status(201).json(result);
 };
+const login = async (req: Request, res: Response) => {
+  const { email, password } = req.body as User;
+  const token = await userService.login(email, password);
+  return res.status(200).json({ token });
+};
 
 export default {
   getAllUsers,
   CreateUser,
+  login,
 };

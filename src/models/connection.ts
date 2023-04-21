@@ -1,9 +1,9 @@
 import db from 'mysql2/promise';
 
 export default db.createPool({
-  host: 'localhost',
-  user: 'root',
-  password: 'root',
+  host: process.env.MYSQL_HOST,
+  user: process.env.MYSQL_USER,
+  password: process.env.MYSQL_PASSWORD,
   port: 3306,
-  database: 'TypeScriptExpress',
+  database: process.env.MYSQL_DATABASE,
 });
