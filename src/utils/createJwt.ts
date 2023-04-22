@@ -1,7 +1,7 @@
 import jwt, { Secret } from 'jsonwebtoken';
 
-const createJwt = (email: string) => {
-  const result = jwt.sign({ email }, process.env.SECRET as Secret);
+const createJwt = (id: string, email: string) => {
+  const result = jwt.sign({ email, id }, process.env.SECRET as Secret);
   return result;
 };
 

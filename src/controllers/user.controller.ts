@@ -18,8 +18,27 @@ const login = async (req: Request, res: Response) => {
   return res.status(200).json({ token });
 };
 
+const updateUser = async (req: Request, res: Response) => {
+  const user = req.body as User;
+  const result = await userService.updateUser(user, +req.params.id);
+  return res.status(200).json(result);
+};
+
+const getUserById = async (req: Request, res: Response) => {
+  const result = await userService.getUserById(req.params.id);
+  return res.status(200).json(result);
+};
+
+const deleteUserById = async (req: Request, res: Response) => {
+  await userService.deleteUserById(req.params.id);
+  return res.status(204).json();
+};
+
 export default {
   getAllUsers,
   CreateUser,
   login,
+  updateUser,
+  getUserById,
+  deleteUserById,
 };
