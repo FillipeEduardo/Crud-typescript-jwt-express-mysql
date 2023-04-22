@@ -20,7 +20,8 @@ const login = async (req: Request, res: Response) => {
 
 const updateUser = async (req: Request, res: Response) => {
   const user = req.body as User;
-  const result = await userService.updateUser(user, +req.params.id);
+  const result = await userService
+    .updateUser(user, +req.params.id, req.headers.authorization as string);
   return res.status(200).json(result);
 };
 

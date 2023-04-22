@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import userController from '../controllers/user.controller';
+import authMiddleware from '../middleware/authMiddleware';
 import createUserMiddleware from '../middleware/createUserMiddleware';
 import fieldsMiddleware from '../middleware/fieldsMiddleware';
 import loginMiddleware from '../middleware/loginMiddleware';
@@ -16,8 +17,8 @@ userRouter.post('/login', loginMiddleware, userController.login);
 
 userRouter
   .route('/users/:id')
-  .get(userController.getUserById)
-  .delete(userController.deleteUserById)
-  .put(updateMiddleware, userController.updateUser);
+  .get(authMiddleware, userController.getUserById)
+  .delete(authMiddleware, userController.deleteUserById)
+  .put(authMiddleware, updateMiddleware, userController.updateUser);
 
 export default userRouter;

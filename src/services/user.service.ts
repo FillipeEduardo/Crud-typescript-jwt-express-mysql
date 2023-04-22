@@ -1,3 +1,4 @@
+import jwt from 'jsonwebtoken';
 import userModel from '../models/user.model';
 import User from '../types/user';
 import createJwt from '../utils/createJwt';
@@ -20,7 +21,9 @@ const login = async (email: string, password: string): Promise<string> => {
   return createJwt(user.id.toString(), email);
 };
 
-const updateUser = async (user: User, id: number): Promise<User> => {
+const updateUser = async (user: User, id: number, token: string): Promise<User> => {
+  const auth = jwt.decode(token) as User;
+  if (+auth.id !== id) throw new Error('ANOTHER_USER');
   const result = await userModel.updateUser(id, user);
   return result;
 };
